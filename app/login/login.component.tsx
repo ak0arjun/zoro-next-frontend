@@ -38,14 +38,14 @@ export default function LoginComponent() {
                     <div className="p-2">
 
                     </div>
-                    <div className="text-primary-text text-3xl">
+                    <div data-testid='login-title-id' className="text-primary-text text-3xl">
                         Zoro AI
                     </div>
                 </div>
                 <div className="p-6">
 
                 </div>
-                <Input type="email" ref={emailInputRef} placeholder="Email" className="text-primary-text" />
+                <Input type="email" ref={emailInputRef} placeholder="Enter your email" className="text-primary-text" />
                 <div className="p-6">
 
                 </div>
