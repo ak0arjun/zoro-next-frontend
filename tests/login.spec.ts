@@ -1,8 +1,8 @@
 import { INTERNATIONALIZATION } from '@/lib/i8n';
 import { test, expect } from '@playwright/test';
 
-// const FRONTEND_URL = 'https://zoro-next-frontend-ak0arjun.vercel.app/';
-const FRONTEND_URL = 'http://localhost:3001/';
+const FRONTEND_URL = 'https://zoro-next-frontend-ak0arjun.vercel.app/';
+// const FRONTEND_URL = 'http://localhost:3001/';
 
 test('Check static information', async ({ page }) => {
   await page.goto(FRONTEND_URL);
