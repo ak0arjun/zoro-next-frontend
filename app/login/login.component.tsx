@@ -22,7 +22,7 @@ export default function LoginComponent() {
     const token = params.get('token');
     const setJwtToken = useUserStore((state) => state.setJwtToken);
     const setUserProfile = useUserStore((state) => state.setUserProfile);
-    const { data: user, isLoading } = useSWR<UserModel>(token !== undefined ? ['user', token] : null, ([url, token]: string[]) => fetchUserByToken(url, token));
+    const { data: user, isLoading } = useSWR<UserModel>(token? ['user', token] : null, ([url, token]: string[]) => fetchUserByToken(url, token));
     if (token && user) {
         updateUserState(user, token);
     }

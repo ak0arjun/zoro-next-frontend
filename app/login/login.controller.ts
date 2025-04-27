@@ -14,6 +14,5 @@ export async function callGenerateLoginEmail(email: string): Promise<{[key:strin
  */
 export async function fetchUserByToken(url: string, token: string): Promise<UserModel> {
      const result = await makeGetFetchRequest<UserModel>(url, {'Authorization': token});
-     console.log(result);
      return result;
 }

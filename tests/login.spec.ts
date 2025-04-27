@@ -1,8 +1,11 @@
 import { INTERNATIONALIZATION } from '@/lib/i8n';
 import { test, expect } from '@playwright/test';
 
+// const FRONTEND_URL = 'https://zoro-next-frontend-ak0arjun.vercel.app/';
+const FRONTEND_URL = 'http://localhost:3001/';
+
 test('Check static information', async ({ page }) => {
-  await page.goto('http://localhost:3001/');
+  await page.goto(FRONTEND_URL);
 
   // Expect a title "to contain" a substring.
   await expect(page).toHaveTitle(/Zoro AI/);
@@ -17,7 +20,7 @@ test('Check static information', async ({ page }) => {
 });
 
 test('Click login with error email 1', async ({ page }) => {
-  await page.goto('http://localhost:3001/');
+  await page.goto(FRONTEND_URL);
 
 
   const loginButton = page.getByRole('button', { name: 'Login' });
@@ -28,7 +31,7 @@ test('Click login with error email 1', async ({ page }) => {
 });
 
 test('Click login with error email 2', async ({ page }) => {
-  await page.goto('http://localhost:3001/');
+  await page.goto(FRONTEND_URL);
 
 
   const loginButton = page.getByRole('button', { name: 'Login' });
@@ -41,7 +44,7 @@ test('Click login with error email 2', async ({ page }) => {
 });
 
 test('Click login with error email 3', async ({ page }) => {
-  await page.goto('http://localhost:3001/');
+  await page.goto(FRONTEND_URL);
 
 
   const loginButton = page.getByRole('button', { name: 'Login' });
@@ -51,4 +54,23 @@ test('Click login with error email 3', async ({ page }) => {
   const emailInput = page.getByPlaceholder('Enter your email');
   await emailInput.fill('test@abc');
   await expect(page.getByText(INTERNATIONALIZATION.EN_US.LOGIN_EMAIL_INCORRECT_ERROR)).toBeVisible();
+});
+
+test('Click login with correct email', async ({ page }) => {
+  await page.route('*/**/login', async route => {
+    const json = { 'status': 'success', 'message': 'Email sent' };
+    await route.fulfill({ json });
+  });
+  await page.goto(FRONTEND_URL);
+
+
+  const loginButton = page.getByRole('button', { name: 'Login' });
+
+
+  const emailInput = page.getByPlaceholder('Enter your email');
+  await emailInput.fill('test@a.com');
+
+  await loginButton.click();
+
+  await expect(page.getByText(INTERNATIONALIZATION.EN_US.LOGIN_EMAIL_GENERATED_MESSAGE)).toBeVisible();
 });
