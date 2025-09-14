@@ -1,7 +1,7 @@
 import { INTERNATIONALIZATION } from '@/lib/i8n';
 import { test, expect } from '@playwright/test';
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3001';
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
 test('Check static information', async ({ page }) => {
   await page.goto(FRONTEND_URL);
